@@ -19,7 +19,7 @@
 
     <div id="wpadminbar" class="nojq">
         <div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
-            <!-- wp logo -->◘
+            <!-- wp logo -->
             <ul role="menu" id="wp-admin-bar-root-default" class="ab-top-menu">
                 <li role="group" id="wp-admin-bar-menu-toggle"><a class="ab-item" role="menuitem" href="#" aria-expanded="false"><span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">Menu</span></a></li>
                 <div class="dropdown">
