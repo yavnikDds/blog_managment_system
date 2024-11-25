@@ -1,0 +1,14 @@
+- learned how to push code to the github repository
+- learned about main develop and main branch 
+- learned about git flow, its purpose and some commands related to it.
+	- main, develop, feature, release, hotfix
+	- how to mearge two branch 
+- learned about file manipulation in php
+- created login functionality 
+    - created forntend 
+    - wrote ajax code
+    - created classes for login fucntionality 
+    - made contoller file to perform logic neccessary for login fucntionality
+- created frontend of dashboard 
+- created add blog page and few front end elements
+- created database

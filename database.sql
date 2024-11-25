@@ -1,12 +1,10 @@
 CREATE DATABASE IF NOT EXISTS blog_managment_system;
 USE blog_managment_system;
 
-CREATE TABLE books_management (
+CREATE TABLE user (
     id INT(10) NOT NULL AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL, -- Changed from TEXT to VARCHAR(100) for better length control
-    author_id INT(10) NOT NULL,
-    category VARCHAR(100) NOT NULL, -- Changed from TEXT to VARCHAR(100)
-    published_year VARCHAR(4) NOT NULL, -- Reduced length to 4 (e.g., "2024")
+    email VARCHAR(100) NOT NULL, -- Changed from TEXT to VARCHAR(100) for better length control
+    password VARCHAR(100) NOT NULL,
     PRIMARY KEY (id) -- Correct syntax for PRIMARY KEY
 );
 
