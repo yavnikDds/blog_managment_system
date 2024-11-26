@@ -35,6 +35,17 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
             color: black;
         }
 
+        .heading_element_preview {
+            /* height: 100px; */
+            min-height: 110px;
+            border: 1px solid #000000;
+            border-radius: 6px;
+            margin: 5px;
+            width: 100%;
+            background-color: #FFFFFF;
+            color: black;
+        }
+
         .main-container {
             padding: 20px 30px 20px 30px;
             background-color: #d2d3d4;
@@ -54,29 +65,52 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
 
 <body>
     <div class="container-fluid main-container">
-
+        <div class="row">
+            <a class="navbar-brand text-light" href="index.php" id="home_page"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwm419xJ55U-h8p194LTplMOfDMc7qEdM-FA&s" alt="elementor clone" width="35px" height="35px"> </a>
+        </div>
         <div class="row">
             <?php
             // require VIEW_LAYOUT . "/header.php";
             ?>
+            <!--section-1 elements -->
             <div class="col-3 p-3 ">
                 <div class="row d-flex magenta-color">
                     <h3>Elements</h3>
                 </div>
                 <div class="row d-flex justify-content-around">
-                    <div class="element">Heading</div>
-                    <div class="element">Text Editor</div>
+                    <div class="element" id="heading_element">Heading</div>
+                    <div class="element" id="text_editor_element">Text Editor</div>
                 </div>
                 <div class="row d-flex justify-content-around">
-                    <div class="element">Image</div>
-                    <div class="element">Video</div>
+                    <div class="element" id="image_element">Image</div>
+                    <div class="element" id="video_element">Video</div>
                 </div>
             </div>
-            <div class="col-5 p-3 bg-success">
-                <h3>Page Preview</h3>
+            <!--section-2 Page Preview -->
+            <div class="col-5 p-3 bg-danger" id="page_preview">
+                <h3 id="page_preview_start">Page Preview</h3>
+                <!-- heading element - id - heading_element_${some_number} -->
+                <!-- <div class="preview_elements" id="heading_element_${some_number}">
+                    <div class="heading_element_preview d-flex align-items-center justify-content-center" >
+                        <h1>Title</h1>
+                    </div>
+                </div> -->
             </div>
-            <div class="col-4 p-3 bg-primary">
+            <!--section-3 Edit Element -->
+            <div class="col-4 p-3 bg-primary" id="edit_elements">
                 <h3>Edit Element</h3>
+                <!-- <div id="edit_element_setting">
+                    <h4>Edit Heading</h4>
+                    <div class="row">
+                        <div class="col">Content</div>
+                        <div class="col">style</div>
+                        <div class="col">Advance</div>
+                    </div>
+                    <div class="row">
+                        <h6>title</h6>
+                        <textarea class="col-12 " style="height:100px;width: 90%;margin:auto" id="" name="" rows="4" cols="50"></textarea>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -86,7 +120,9 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
     <?php
     require VIEW_LAYOUT . "/footer.link.php";
     ?>
-
+    <?php
+    require VIEW . "/js/add_new_blog_js.php";
+    ?>
 </body>
 
 </html>

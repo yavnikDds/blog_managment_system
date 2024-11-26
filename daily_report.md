@@ -1,14 +1,10 @@
-- learned how to push code to the github repository
-- learned about main develop and main branch 
-- learned about git flow, its purpose and some commands related to it.
-	- main, develop, feature, release, hotfix
-	- how to mearge two branch 
-- learned about file manipulation in php
-- created login functionality 
-    - created forntend 
-    - wrote ajax code
-    - created classes for login fucntionality 
-    - made contoller file to perform logic neccessary for login fucntionality
-- created frontend of dashboard 
-- created add blog page and few front end elements
-- created database
+- added confirmation to exist page with and without saveing changes
+- made three sections to add elements on the blog page dynamically 
+- 1. added a forntend to add four elements heading, image, video and texteditor dynamically using jquery
+- 2. made a dynamic preview section on the same page to show user all the element they add
+     - created a fucntionality to edit only one element at a time with delete save and cancel chages made by user
+- 3. created an element editing section to edit heading element settings
+     - adding title content 
+     - selecting heading tag 
+     - selecting heading colour
+all code is custom
