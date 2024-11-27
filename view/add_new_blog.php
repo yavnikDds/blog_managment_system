@@ -59,6 +59,10 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
             background-color: #9B0A46;
             color: #ffffff;
         }
+
+        .text_alignment_btn.active {
+            background-color: #b3b3b3 !important;
+        }
     </style>
 
 </head>

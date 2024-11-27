@@ -9,10 +9,16 @@ CREATE TABLE user (
 );
 
 
-CREATE TABLE authors_management(
+CREATE TABLE main_blog(
     id INT(10) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    bio VARCHAR(1000) NOT NULL,
+    element_name VARCHAR(255) NOT NULL,
+    element_id VARCHAR(255) NOT NULL,
+    h VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL,
+    sr_no VARCHAR(255) NOT NULL,
+    tag VARCHAR(255) NOT NULL,
+    text_alignment VARCHAR(255) NOT NULL,
+    value VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 );
 CREATE TABLE borrowing_records(
