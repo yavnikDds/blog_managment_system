@@ -21,6 +21,13 @@ CREATE TABLE main_blog(
     value VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 );
+CREATE TABLE blog_token(
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    token INT(10) NOT NULL,
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE borrowing_records(
     id INT(10) NOT NULL AUTO_INCREMENT,
     book_id INT(10) NOT NULL,
