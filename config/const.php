@@ -15,6 +15,7 @@ $root_url .= "://localhost/yavnik/_code/blog_managment_system";
 define("ROOT_FILE_PATH", $root_file_path); // 
 define("CONFIG",ROOT_FILE_PATH."/config");
 define("VIEW",ROOT_FILE_PATH."/view");
+define("PLUGIN",ROOT_FILE_PATH."/plugin ");
 define("VIEW_LAYOUT",ROOT_FILE_PATH."/view/layout");
 define("MODEL",ROOT_FILE_PATH."/model");
 
@@ -22,6 +23,7 @@ define("MODEL",ROOT_FILE_PATH."/model");
 define("URL", $root_url); // with localhost
 define("URL_CONTROLLER", URL."/controller"); // with localhost
 define("URL_VIEW", URL."/view"); // with localhost
+define("URL_PLUGIN", URL."/plugin"); // with localhost
 
 // echo $root_url."<br>";
 // echo $root_file_path."<br>";die;

@@ -4,11 +4,11 @@ require $_SERVER["DOCUMENT_ROOT"] . "/yavnik/_code/blog_managment_system/config/
 // die;
 if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
     // echo "session are not set";
-    if (time() - $_SESSION["login_time_stamp"] > 1800) {
-        session_unset();
-        session_destroy();
-        header("location: login.php");
-    }
+    // if (time() - $_SESSION["login_time_stamp"] > 1800) {
+    //     session_unset();
+    //     session_destroy();
+    //     header("location: login.php");
+    // }
 } else {
     header("location: login.php");
 }
@@ -45,7 +45,16 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
             background-color: #FFFFFF;
             color: black;
         }
-
+        .text_editor_element {
+            /* height: 100px; */
+            min-height: 110px;
+            border: 1px solid #000000;
+            border-radius: 6px;
+            margin: 5px;
+            width: 100%;
+            background-color: #FFFFFF;
+            color: black;
+        }
         .main-container {
             padding: 20px 30px 20px 30px;
             background-color: #d2d3d4;
@@ -62,6 +71,9 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
 
         .text_alignment_btn.active {
             background-color: #b3b3b3 !important;
+        }
+        .input-images{
+
         }
     </style>
 
@@ -99,6 +111,15 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_email"])) {
                         <h1>Title</h1>
                     </div>
                 </div> -->
+                <div class="row d-flex justify-content-end">
+                    <button type="button" class="btn btn-success col-2 mx-2" id="save_btn">Save</button>
+                    <button type="button" class="btn btn-primary col-2 mx-2" id="preview_btn">Preview</button>
+                    <!-- <button type="button" class="btn btn-primary col-2" mx-2 id="cancel_btn">Cancel</button> -->
+                    <!-- <button type="button" class="btn btn-light col-2" mx-2 id="delete_btn">Delete</button> -->
+                </div>
+                
+                <!-- <textarea class="editor" rows="3" name="textEditor" id="textEditor"></textarea> -->
+
             </div>
             <!--section-3 Edit Element -->
             <div class="col-4 p-3 bg-primary" id="edit_elements">
