@@ -1,7 +1,3 @@
-added text editor element to the add blog page.
-- manipulated jQuery editor to show its preview and setting saperetly library due to project requirement of preview of the element and its setting
-- fetched values using custom code for editing it afterward  
-added jaquery library to get image by drag and drop
-- mainpulated it to get images to the preview section 
-made a custom functionality to add video in the  
-
+made functionality to modify video element by adding embbed link.
+made functionality to extract all the elements data from the dom to addit to the data base.\
+made iserted the page elements code in database if the page is new other vise it would upadate it.

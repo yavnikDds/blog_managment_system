@@ -16,7 +16,7 @@
     //     return window.result;
     // }
     // functions
-    // window.result = 0;
+    window.result = 0;
 
     function generate_new_slug(Text, result) {
         if (result == "first") {
@@ -41,6 +41,7 @@
         },
         success: function(data) {
             window.token = data["id"] + 1;
+            // alert(window.token);
         }
     });
     // /generate token for a page 
@@ -66,10 +67,10 @@
     var elements_id_array = new Array();
     window.actively_edited_element = "";
     window.actively_edited_element_id = "";
-    // window.token = window.token;
-    // window.slug = "";
-    // window.slug_for_token = "";
-    // window.title = "";
+    window.token = window.token;
+    window.slug = "";
+    window.slug_for_token = "";
+    window.title = "";
 
     // id logic
     // ------------------------------------------- section 1 - elements
@@ -147,7 +148,7 @@
 
             // append the clone of text editor in preview page
             let html_code_clone = `
-            <div class="preview_element_div current_element_to_edit">
+            <div class="preview_element_div current_element_to_edit" data_id="${id}">
             <div class="text_editor_element preview_element" style=" overflow-wrap: break-word;" >
             <div class="${id}"></div>
             </div>
@@ -232,12 +233,7 @@
             //     src = $(".uploaded-image").children("img").attr("src") ? $(".uploaded-image").children("img").attr("src") : "http://localhost/yavnik/_code/blog_managment_system/images/blank.png";
             //     $(`#${id}`).children(".image_element").children("img").attr("src", `${src}`);
             // }, function() {});
-            window.count = 1;   
-            $(document).on("click", ".btn-image-upload", function() {
-                src = $(".uploaded-image").children("img").attr("src") ? $(".uploaded-image").children("img").attr("src") : "http://localhost/yavnik/_code/blog_managment_system/images/blank.png";
-                console.log(id);
-                $(`#${id}`).children(".image_element").children("img").attr("src", `${src}`);
-            });
+            window.count = 1;
         } else {
             alert("Other element is active");
         }
@@ -256,7 +252,7 @@
             let html_code = `
             <div class="preview_element_div current_element_to_edit" id="${id}">
             <div class="video_element preview_element" style="" >
-            <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+            <iframe width="420" height="345" src="https://www.youtube.com/embed/1UyQaR8pvjk?si=atiJv2ZxVozHH2S5"></iframe>
             </div>
             </div>
             `;
@@ -271,10 +267,6 @@
             is_element_active = true;
             $('#edit_heading_setting').remove();
             edit_video_element(actively_edited_element, id);
-            $(document).on("click", ".btn-image-upload", function() {
-                src = $(".uploaded-image").children("img").attr("src") ? $(".uploaded-image").children("img").attr("src") : "http://localhost/yavnik/_code/blog_managment_system/images/blank.png";
-                $(`#${id}`).children(".image_element").children("img").attr("src", `${src}`);
-            });
         } else {
             alert("Other element is active");
         }
@@ -344,12 +336,17 @@
                 // $('#edit_heading_setting').remove();
                 edit_image_element("image_element", img_id);
                 window.actively_edited_element_id = img_id;
-                // console.log("clicked " + window.actively_edited_element_id);
-                $(document).on("click", ".btn-image-upload", function() {
-                    src = $(".uploaded-image").children("img").attr("src") ? $(".uploaded-image").children("img").attr("src") : "http://localhost/yavnik/_code/blog_managment_system/images/blank.png";
-                    $(`#${img_id}`).children(".image_element").children("img").attr("src", `${src}`);
-                });
+                console.log("clicked " + window.actively_edited_element_id);
             }
+            if ($(this).hasClass("video_element")) {
+                let vid_id = $(this).parent().attr("id");
+                actively_edited_element = "video_element";
+                window.actively_edited_element_id = vid_id;
+                // $('#edit_heading_setting').remove();
+                edit_video_element("video_element", vid_id);
+                console.log("clicked " + window.actively_edited_element_id);
+            }
+
         } else {
             alert("Other element is active");
         }
@@ -374,121 +371,213 @@
     // -------------------------------------------------------- save action
 
     // to save whole page 
-    // $(document).on("click", "#save_btn", function() {
-    //     let sr_no = $(".current_element_to_edit").attr("data-sr-no");
-    //     heading_element_values();
-    //     $(".preview_element_div").each(function(i, obj) {
-    //         $(this).attr("data-sr-no", i);
-    //     })
-    //     if (sr_no == 0) {
-    //         if (window.slug_for_token == "") {
-    //             window.slug = generate_new_slug(window.current_heading_element_value, "first");
-    //             // window.title = window.current_heading_element_value;
-    //         } else {
-    //             window.slug = window.slug_for_token;
-    //         }
-    //         window.title = window.current_heading_element_value;
-    //     }
-    //     let element = ($(this).closest('.preview_element_div').children('.preview_element').prop('outerHTML'));
-    //     // alert(element);
-    //     // save element to the database
-    //     $('#edit_heading_setting').remove();
-    //     $(this).parent().remove();
-    //     is_element_active = false;
-    //     if (actively_edited_element == "heading_element") {
-    //         window.saved_heading_element_value = window.current_heading_element_value;
-    //         window.saved_heading_element_h = window.current_heading_element_h;
-    //         window.saved_heading_element_color = window.current_heading_element_color;
-    //         window.saved_heading_element_tag = window.current_heading_element_tag;
-    //         window.saved_heading_element_text_alignment = window.current_heading_element_text_alignment;
-    //         // check if slug is availabel
-    //         function check_slug_availability() {
-    //             $.ajax({
-    //                 url:  /add_blog.controller.php",
-    //                 dataType: "json",
-    //                 type: "POST",
-    //                 data: {
-    //                     task: "check_slug_availability",
-    //                     slug: window.slug,
-    //                     token: window.token
-    //                 },
-    //                 success: function(data) {
-    //                     if (data["status"] == false) {
-    //                         window.slug = generate_new_slug(window.current_heading_element_value, result);
-    //                         // recursive function
-    //                         check_slug_availability();
-    //                     } else {
-    //                         window.slug_for_token = window.slug;
-    //                         alert(`token before ajax ${window.token}`);
-    //                         if (data["status"] == true) {
-    //                             $.ajax({
-    //                                 url: /add_blog.controller.php",
-    //                                 dataType: "json",
-    //                                 type: "POST",
-    //                                 data: {
-    //                                     task: "save_heading_element",
-    //                                     token: window.token,
-    //                                     slug: window.slug_for_token,
-    //                                     title: window.saved_heading_element_value,
-    //                                     sr_no: sr_no,
-    //                                     element_name: "heading_element",
-    //                                     element_id: window.actively_edited_element_id,
-    //                                     value: window.saved_heading_element_value,
-    //                                     h: window.saved_heading_element_h,
-    //                                     color: window.saved_heading_element_color,
-    //                                     tag: window.saved_heading_element_tag,
-    //                                     text_alignment: window.saved_heading_element_text_alignment
-    //                                 },
-    //                                 success: function(data) {
-    //                                     if (data["status"] == true) {
-    //                                         window.slug_for_token = window.slug;
-    //                                         alert(window.slug_for_token);
-    //                                     }
-    //                                     if (data["status"] == false) {
-    //                                         // if (confirm("The title already exist do you really want to keep it ?")) {
-    //                                         //     alert("Okay");
-    //                                         //     generate_new_slug();
+    $(document).on("click", "#save_btn", function() {
+        let i = 0;
+        let page_elements = [];
+        let title = null;
+        $(".preview_element_div").each(function(i) {
+            console.log(++i);
+            $(this).attr("data-sr-no", i);
+            // let element_name=$(this).children().hasClass(".heading_element_preview");
+            if ($(this).children().hasClass("heading_element_preview")) {
+                // console.log("heading_element_preview_ triggerd");
+                // console.log($(this).children().html());
+                let heading_element = $(this).children().html();
+                let id = $(this).attr("id");
+                if (title === null) {
+                    // console.log("title is null");
+                    title = $(this).children().children().text();
+                    // console.log(title);
+                }
+                page_elements[i - 1] = {
+                    "index": i - 1,
+                    "element": "heading_element",
+                    "data": heading_element,
+                    "id": id
+                };
+            } else if ($(this).children().hasClass("text_editor_element")) {
+                let text_element = $(this).children().children().html();
+                // let id = $(this).children().children().html();
+                let id = $(this).attr("data_id");
+                page_elements[i - 1] = {
+                    "index": i - 1,
+                    "element": "text_editor_element",
+                    "data": text_element,
+                    "id": id
+                };
+            } else if ($(this).children().hasClass("image_element")) {
+                let image_element = $(this).children().html();
+                let id = $(this).attr("id");
+                page_elements[i - 1] = {
+                    "index": i - 1,
+                    "element": "image_element",
+                    "data": image_element,
+                    "id": id
+                };
+            } else if ($(this).children().hasClass("video_element")) {
+                let video_element = $(this).children().html();
+                let id = $(this).attr("id");
+                page_elements[i - 1] = {
+                    "index": i - 1,
+                    "element": "video_element",
+                    "data": video_element,
+                    "id": id
+                };
+            }
+        });
+        if (window.slug == "") {
+            window.slug = generate_new_slug(title, "first");
+        } else {
+            window.slug = generate_new_slug(title, "not_first");
+        }
+        console.log(window.slug);
+        $.ajax({
+            url: "<?= URL_CONTROLLER ?>/add_blog.controller.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                task: "check_slug_availability",
+                slug: window.slug,
+                token: window.token
+            },
+            success: function(data) {
+                console.log(data);
+                if (data["status"] == true) {
+                    window.slug_for_token = window.slug;
+                    $.ajax({
+                        url: "<?= URL_CONTROLLER ?>/add_blog.controller.php",
+                        dataType: "json",
+                        type: "POST",
+                        data: {
+                            task: "save_page_elements",
+                            page_elements: page_elements,
+                            slug: window.slug_for_token,
+                            token: window.token
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    })
+                }
+                if (data["status"] == false) {
+                    $("#save_btn").click();
+                }
+            }
+        });
+        // console.log(page_elements);
 
-    //                                         // } else {
-    //                                         //     alert("Okay, then please change it");
-    //                                         // }
-    //                                     }
-    //                                 }
-    //                             });
-    //                         }
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //         check_slug_availability();
-    //         // if (generate_new_slug()) {
-    //         //     window.slug =
-    //         // } else {
-    //         //     window.slug = window.slug;
-    //         // }
-    //         console.log({
-    //             task: "save_heading_element",
-    //             token: window.token,
-    //             slug: window.slug,
-    //             value: window.saved_heading_element_value,
-    //             element_name: "heading_element",
-    //             element_id: window.actively_edited_element_id,
-    //             h: window.saved_heading_element_h,
-    //             color: window.saved_heading_element_color,
-    //             sr_no: sr_no,
-    //             tag: window.saved_heading_element_tag,
-    //             text_alignment: window.saved_heading_element_text_alignment
-    //         });
-    //         // let object = {
-    //         //     "tag": window.saved_heading_element_tag,
-    //         //     "h": window.saved_heading_element_h,
-    //         //     "color": window.saved_heading_element_color,
-    //         //     "text_alignment": window.saved_heading_element_text_alignment
-    //         // };
+        // let sr_no = $(".current_element_to_edit").attr("data-sr-no");
+        // if (sr_no == 0) {
+        //     if (window.slug_for_token == "") {
+        //         window.slug = generate_new_slug(window.current_heading_element_value, "first");
+        //         // window.title = window.current_heading_element_value;
+        //     } else {
+        //         window.slug = window.slug_for_token;
+        //     }
+        //     window.title = window.current_heading_element_value;
+        // }
 
-    //         $(".preview_element_div").removeClass("current_element_to_edit");
-    //     };
-    // });
+        // let element = ($(this).closest('.preview_element_div').children('.preview_element').prop('outerHTML'));
+
+        // // alert(element);
+        // // save element to the database
+        // $('#edit_heading_setting').remove();
+        // $(this).parent().remove();
+        // is_element_active = false;
+        // if (actively_edited_element == "heading_element") {
+        //     window.saved_heading_element_value = window.current_heading_element_value;
+        //     window.saved_heading_element_h = window.current_heading_element_h;
+        //     window.saved_heading_element_color = window.current_heading_element_color;
+        //     window.saved_heading_element_tag = window.current_heading_element_tag;
+        //     window.saved_heading_element_text_alignment = window.current_heading_element_text_alignment;
+        //     // check if slug is availabel
+        //     function check_slug_availability() {
+        //         $.ajax({
+        //             url:  /add_blog.controller.php",
+        //             dataType: "json",
+        //             type: "POST",
+        //             data: {
+        //                 task: "check_slug_availability",
+        //                 slug: window.slug,
+        //                 token: window.token
+        //             },
+        //             success: function(data) {
+        //                 if (data["status"] == false) {
+        //                     window.slug = generate_new_slug(window.current_heading_element_value, result);
+        //                     // recursive function
+        //                     check_slug_availability();
+        //                 } else {
+        //                     window.slug_for_token = window.slug;
+        //                     alert(`token before ajax ${window.token}`);
+        //                     if (data["status"] == true) {
+        //                         $.ajax({
+        //                             url: /add_blog.controller.php",
+        //                             dataType: "json",
+        //                             type: "POST",
+        //                             data: {
+        //                                 task: "save_heading_element",
+        //                                 token: window.token,
+        //                                 slug: window.slug_for_token,
+        //                                 title: window.saved_heading_element_value,
+        //                                 sr_no: sr_no,
+        //                                 element_name: "heading_element",
+        //                                 element_id: window.actively_edited_element_id,
+        //                                 value: window.saved_heading_element_value,
+        //                                 h: window.saved_heading_element_h,
+        //                                 color: window.saved_heading_element_color,
+        //                                 tag: window.saved_heading_element_tag,
+        //                                 text_alignment: window.saved_heading_element_text_alignment
+        //                             },
+        //                             success: function(data) {
+        //                                 if (data["status"] == true) {
+        //                                     window.slug_for_token = window.slug;
+        //                                     alert(window.slug_for_token);
+        //                                 }
+        //                                 if (data["status"] == false) {
+        //                                     // if (confirm("The title already exist do you really want to keep it ?")) {
+        //                                     //     alert("Okay");
+        //                                     //     generate_new_slug();
+
+        //                                     // } else {
+        //                                     //     alert("Okay, then please change it");
+        //                                     // }
+        //                                 }
+        //                             }
+        //                         });
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     }
+        //     check_slug_availability();
+        //     // if (generate_new_slug()) {
+        //     //     window.slug =
+        //     // } else {
+        //     //     window.slug = window.slug;
+        //     // }
+        //     console.log({
+        //         task: "save_heading_element",
+        //         token: window.token,
+        //         slug: window.slug,
+        //         value: window.saved_heading_element_value,
+        //         element_name: "heading_element",
+        //         element_id: window.actively_edited_element_id,
+        //         h: window.saved_heading_element_h,
+        //         color: window.saved_heading_element_color,
+        //         sr_no: sr_no,
+        //         tag: window.saved_heading_element_tag,
+        //         text_alignment: window.saved_heading_element_text_alignment
+        //     });
+        //     // let object = {
+        //     //     "tag": window.saved_heading_element_tag,
+        //     //     "h": window.saved_heading_element_h,
+        //     //     "color": window.saved_heading_element_color,
+        //     //     "text_alignment": window.saved_heading_element_text_alignment
+        //     // };
+
+        //     $(".preview_element_div").removeClass("current_element_to_edit");
+        // };
+    });
     //------------------------------------------------------- to save single element
     $(document).on("click", "#save_btn_1", function() {
         // alert("save_btn_1");
@@ -556,7 +645,6 @@
     // adding corrosponding editing element
     // heading element edit settings  
     function edit_heading_element(text, actively_edited_element, id) {
-        alert(actively_edited_element);
         if (actively_edited_element == "heading_element") {
             let edit_elements_html = `
                     <div id="edit_heading_setting" data-active-element-id="${id}">
@@ -583,7 +671,7 @@
                         </div>
                         <div class="row w-25 ms-2">
                             <label for="heading_color_input_id">Select color:</label>
-                            <input type="color" id="heading_color_input_id" name="heading_color_input_id" value="#000000">
+                            <input type="color" id="heading_color_input_id" name="heading_color_input_id" style="min-height:25px" value="#000000">
                         </div>
                         <div class="row w-50 ms-2 d-flex justify-content-around">
                             <label for="heading_text_alignment_id">Text Alignment:</label>
@@ -626,20 +714,30 @@
             maxFiles: 1,
             label: 'Drag & Drop files here or click to browse'
         });
+        $(document).on("click", ".btn-image-upload", function() {
+            src = $(".uploaded-image").children("img").attr("src") ? $(".uploaded-image").children("img").attr("src") : "http://localhost/yavnik/_code/blog_managment_system/images/blank.png";
+            console.log(5);
+            $(`#${window.actively_edited_element_id}`).children(".image_element").children("img").attr("src", `${src}`);
+            console.log(6);
+        });
     };
-    // /image editor element edit settings
+    // /image editor element edit
 
     // video editor element edit settings  
     function edit_video_element(actively_edited_element, id) {
         let edit_elements_html = `
                     <div id="edit_video_element_setting" data-active-element-id="${id}">
                     <form action="" id="video_form_id">
-                        <lable for="url_for_video"></lable>
+                        <lable for="url_for_video"><b>Put Embeded Link Here</b></lable>
                         <input type="text" id="url_for_video" class="form-control" alt="Submit">
                         <button type="button" class="btn btn-light btn-video-upload">Submit</button>
                     </form>
                     </div>`;
         $("#edit_elements").append(edit_elements_html);
+        $(document).on("click", ".btn-video-upload", function() {
+            let link = $("#url_for_video").val();
+            $(`#${window.actively_edited_element_id}`).children(".video_element").children("iframe").attr("src", `${link}`);
+        });
     };
     // /video editor element edit settings
 

@@ -35,22 +35,16 @@ class ADD_BLOG
     }
 
 
-    public function create_new_blog_element($token, $slug, $title, $sr_no, $element_name, $element_id, $value, $h, $color, $tag, $text_alignment)
+    public function create_new_blog_element($token, $slug, $page_elements)
     {
-        $query = "INSERT INTO main_blog (token, slug, title, sr_no, element_name, element_id, value, h, color, tag, text_alignment) VALUE(:token, :slug, :title, :sr_no, :element_name, :element_id, :value, :h, :color, :tag, :text_alignment);";
+        $page_elements = json_encode($page_elements);
+        $query = "INSERT INTO main_blog (token, slug, page_elements) VALUE(:token, :slug, :page_elements);";
         // $query = "SELECT * FROM user WHERE email=:email;";
         $stmt = $this->PDO->prepare($query);
         $stmt->bindValue(":token", $token, PDO::PARAM_STR);
         $stmt->bindValue(":slug", $slug, PDO::PARAM_STR);
-        $stmt->bindValue(":title", $title, PDO::PARAM_STR);
-        $stmt->bindValue(":sr_no", $sr_no, PDO::PARAM_STR);
-        $stmt->bindValue(":element_name", $element_name, PDO::PARAM_STR);
-        $stmt->bindValue(":element_id", $element_id, PDO::PARAM_STR);
-        $stmt->bindValue(":value", $value, PDO::PARAM_STR);
-        $stmt->bindValue(":h", $h, PDO::PARAM_STR);
-        $stmt->bindValue(":color", $color, PDO::PARAM_STR);
-        $stmt->bindValue(":tag", $tag, PDO::PARAM_STR);
-        $stmt->bindValue(":text_alignment", $text_alignment, PDO::PARAM_STR);
+        $stmt->bindValue(":page_elements", $page_elements, PDO::PARAM_STR);
+        // $stmt->bindParam(":page_elements", $page_elements);
         try {
             if ($stmt->execute()) {
                 echo json_encode(["message" => "Data inserted successfully", "status" => true]);
@@ -67,23 +61,15 @@ class ADD_BLOG
         }
     }
 
-    public function update_new_blog_element($token, $slug, $title, $sr_no, $element_name, $element_id, $value, $h, $color, $tag, $text_alignment)
+    public function update_new_blog_element($token, $slug, $page_elements)
     {
         // $query = "INSERT INTO main_blog (token, slug, title, sr_no, element_name, element_id, value, h, color, tag, text_alignment) VALUE(:token, :slug, :title, :sr_no, :element_name, :element_id, :value, :h, :color, :tag, :text_alignment);";
-        $query = "UPDATE main_blog SET token = :token, slug = :slug, title = :title, sr_no = :sr_no, element_name = :element_name, element_id = :element_id, value = :value, h = :h, color = :color, tag = :tag, text_alignment = :text_alignment WHERE token = :token AND sr_no = :sr_no;";
+        $query = "UPDATE main_blog SET token = :token, slug = :slug, page_elements = :page_elements WHERE token = :token;";
         // $query = "SELECT * FROM user WHERE email=:email;";
         $stmt = $this->PDO->prepare($query);
         $stmt->bindValue(":token", $token, PDO::PARAM_STR);
         $stmt->bindValue(":slug", $slug, PDO::PARAM_STR);
-        $stmt->bindValue(":title", $title, PDO::PARAM_STR);
-        $stmt->bindValue(":sr_no", $sr_no, PDO::PARAM_STR);
-        $stmt->bindValue(":element_name", $element_name, PDO::PARAM_STR);
-        $stmt->bindValue(":element_id", $element_id, PDO::PARAM_STR);
-        $stmt->bindValue(":value", $value, PDO::PARAM_STR);
-        $stmt->bindValue(":h", $h, PDO::PARAM_STR);
-        $stmt->bindValue(":color", $color, PDO::PARAM_STR);
-        $stmt->bindValue(":tag", $tag, PDO::PARAM_STR);
-        $stmt->bindValue(":text_alignment", $text_alignment, PDO::PARAM_STR);
+        $stmt->bindParam(":page_elements", $page_elements);
         try {
             if ($stmt->execute()) {
                 echo json_encode(["message" => "Data updated successfully", "status" => true]);
@@ -100,11 +86,10 @@ class ADD_BLOG
         }
     }
 
-    public function check_if_token_and_sr_no($sr_no, $token)
+    public function do_page_needs_to_be_updated($token)
     {
-        $query = "SELECT COUNT(*) FROM main_blog WHERE sr_no=:sr_no AND token=:token;";
+        $query = "SELECT COUNT(*) FROM main_blog WHERE token=:token;";
         $stmt = $this->PDO->prepare($query);
-        $stmt->bindValue(":sr_no", $sr_no, PDO::PARAM_STR);
         $stmt->bindValue(":token", $token, PDO::PARAM_STR);
         try {
             $stmt->execute();

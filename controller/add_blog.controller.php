@@ -21,30 +21,24 @@ if ($task == "check_slug_availability") {
     }
 }
 
-if ($task == "save_heading_element") {
-    if (isset($_POST["token"]) && isset($_POST["slug"]) && isset($_POST["title"]) && isset($_POST["sr_no"]) && isset($_POST["element_name"]) && isset($_POST["element_id"]) && !empty($_POST["token"]) && !empty($_POST["slug"]) && !empty($_POST["title"]) && !empty($_POST["element_name"]) && !empty($_POST["element_id"])) {
+if ($task == "save_page_elements") {
+    if (isset($_POST["page_elements"]) && !empty($_POST["page_elements"]) && isset($_POST["slug"]) && !empty($_POST["slug"]) && isset($_POST["token"]) && !empty($_POST["token"])) {
         // neccessary
         $token = $_POST["token"];
         $slug = $_POST["slug"];
-        $title = $_POST["title"];
-        $sr_no = $_POST["sr_no"];
-        $element_name = $_POST["element_name"];
-        $element_id = $_POST["element_id"];
-
-        // can do without them
-        $value = $_POST["value"];
-        $h = $_POST["h"];
-        $color = $_POST["color"];
-        $tag = $_POST["tag"];
-        $text_alignment = $_POST["text_alignment"];
-        // function to check if the slug exist for the token ?
-        $do_slug_needs_to_be_updated = $ADD_BLOG->check_if_token_and_sr_no($sr_no, $token);
-        if ($do_slug_needs_to_be_updated > 0) {
+        $page_elements = $_POST["page_elements"];
+        // var_dump($page_elements);
+        // echo "<br>";
+        // echo $slug;
+        // echo "<br>";
+        // echo $token;
+        $do_page_needs_to_be_updated = $ADD_BLOG->do_page_needs_to_be_updated($token);
+        if ($do_page_needs_to_be_updated > 0) {
             echo "update";
-            $add_element_to_the_database = $ADD_BLOG->update_new_blog_element($token, $slug, $title, $sr_no, $element_name, $element_id, $value, $h, $color, $tag, $text_alignment);
+            $add_element_to_the_database = $ADD_BLOG->update_new_blog_element($token, $slug, $page_elements);
         } else {
             echo "create";
-            $add_element_to_the_database = $ADD_BLOG->create_new_blog_element($token, $slug, $title, $sr_no, $element_name, $element_id, $value, $h, $color, $tag, $text_alignment);
+            $add_element_to_the_database = $ADD_BLOG->create_new_blog_element($token, $slug, $page_elements);
         }
         // function to add 
         // echo $do_slug_needs_to_be_updated;
